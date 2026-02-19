@@ -28,7 +28,12 @@ function App() {
 
   return (
     <>
-      <header>Test Your self</header>
+      <header className="app-header">
+  <div className="logo">🧠</div>
+  <h1>BrainBoost Quiz</h1>
+  <p>Warning: Side effects may include sudden genius.</p>
+</header>
+
       <main className="container">
         <div className="question">
           {(startQuiz) && (
