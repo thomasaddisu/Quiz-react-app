@@ -114,11 +114,15 @@ main {
 
 .app-header {
   text-align: center;
-  padding: 40px 20px;
+  padding: 0 20px 40px;
   background: linear-gradient(135deg, #0056b3, #7205df);
   color: white;
   border-radius: 0 0 25px 25px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.time{
+    text-align: end;
 }
 
 .app-header .logo {

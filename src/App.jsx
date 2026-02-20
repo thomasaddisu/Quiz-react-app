@@ -1,17 +1,36 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import questions from "./Questions";
 
 function App() {
   const [startQuiz, setStartQuiz] = useState(true);
   const [curentQuestionIndex, setCurentQuestionIndex] = useState(0);
   const [endQuiz, setEndQuiz] = useState(false);
-  
+  const [time, setTime] = useState(10);
+
+useEffect(() => {
+  if (startQuiz || endQuiz) return;
+
+  const timer = setInterval(() => {
+    setTime((prevTime) => {
+      if (prevTime <= 1) {
+        clearInterval(timer);
+        setEndQuiz(true);
+        return 0;
+      }
+      return prevTime - 1;
+    });
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, [startQuiz, endQuiz]);
+
 
   function start_quiz() {
     if (startQuiz) {
       setStartQuiz(false);
     }
+    setTime(10)
   }
 
   function load_Question() {
@@ -29,14 +48,17 @@ function App() {
   return (
     <>
       <header className="app-header">
-  <div className="logo">🧠</div>
-  <h1>BrainBoost Quiz</h1>
-  <p>Warning: Side effects may include sudden genius.</p>
-</header>
+        <p className="time">Time:{time}</p>
+        <div className="logo">🧠</div>
+        <h1>BrainBoost Quiz</h1>
+        <p>Warning: Side effects may include sudden genius.</p>
+        
+        
+      </header>
 
       <main className="container">
         <div className="question">
-          {(startQuiz) && (
+          {startQuiz && (
             <button onClick={start_quiz} className="start-quiz">
               start quiz
             </button>
@@ -84,7 +106,7 @@ function App() {
             </>
           )}
 
-          {!startQuiz  && (
+          {!startQuiz && (
             <button
               onClick={!startQuiz && load_Question}
               className="next-btn"
